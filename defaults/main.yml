@@ -1,7 +1,6 @@
 ---
 # defaults file for mongodb
 
-mongodb_user: 'mongod'
 mongodb_maj_version: '3'
 mongodb_min_version: '0'
 mongodb_packages:

@@ -6,7 +6,6 @@ This role installs and configures [MongoDB](https://www.mongodb.com/), optionall
 Role Variables
 --------------
 
-- `mongodb_user`: User that will run mongodb (default: 'mongod')
 - `mongodb_maj_version`: Major version to install, currently only '3' (default: '3')
 - `mongodb_min_version`: Minor version to install, currently only '0' or '2' (default: '0')
 - `mongodb_packages`: List of packages to install (default: [''])

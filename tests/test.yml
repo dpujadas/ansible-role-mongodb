@@ -4,8 +4,10 @@
   remote_user: root
   vars:
     mongodb_net_bindip: ''
+    mongodb_processmanagement_pidfilepath: '/tmp/mongod.pid'
   roles:
     - {
       role: ansible-role-mongodb,
+      mongodb_use_percona: True,
       mongodb_init_system: 'runit'
     }

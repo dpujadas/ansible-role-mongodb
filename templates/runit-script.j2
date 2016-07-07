@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Activate the Ubuntu MongoDB environment
-. /etc/default/mongod
-
 exec 2>&1
 exec \
-setuser {{ mongodb_user }} /usr/bin/mongod ${OPTIONS}
+setuser {{ mongodb_user }} /usr/bin/mongod -f /etc/mongod.conf
