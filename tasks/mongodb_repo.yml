@@ -1,0 +1,13 @@
+- name: Include the MongoDB variables
+  include_vars: 'mongodb.yml'
+
+- name: Add mongodb apt key
+  apt_key:
+    keyserver: 'keyserver.ubuntu.com'
+    id: '7F0CEB10'
+    state: 'present'
+
+- name: Add mongodb repos
+  apt_repository:
+    state: 'present'
+    repo: '{{ mongodb_mongodb_repo }}'

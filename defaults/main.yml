@@ -1,0 +1,36 @@
+---
+# defaults file for mongodb
+
+mongodb_user: 'mongod'
+mongodb_maj_version: '3'
+mongodb_min_version: '0'
+mongodb_packages:
+  - ''
+mongodb_init_system: 'upstart'
+
+mongodb_use_percona: False
+
+## Config
+# storage
+mongodb_storage_dbpath: '/var/lib/mongodb'
+mongodb_storage_journal_enabled: 'true'
+mongodb_storage_engine: ''
+# systemLog
+mongodb_systemlog_destination: 'file'
+mongodb_systemlog_path: '/var/log/mongodb/mongod.log'
+mongodb_systemlog_logappend: 'true'
+# processManagement
+mongodb_processmanagement_fork: 'true'
+mongodb_processmanagement_pidfilepath: '/var/run/mongod.pid'
+# net
+mongodb_net_port: '27017'
+mongodb_net_bindip: '127.0.0.1'
+mongodb_net_ssl_mode: ''
+# security
+mongodb_security_authorization: 'disabled'
+mongodb_security_clusterauthmode: 'keyFile'
+# replication
+mongodb_replication_replsetname: ''
+mongodb_replication_oplogsizemb: ''
+# parameters
+mongodb_setparameter: []

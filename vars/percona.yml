@@ -1,0 +1,4 @@
+mongodb_percona_package_name: 'percona-release'
+mongodb_percona_package_version: '0.1-4.{{ ansible_lsb.codename }}'
+mongodb_percona_package: '{{ mongodb_percona_package_name }}_{{ mongodb_percona_package_version }}_all'
+mongodb_prefix: 'percona-server-mongodb'

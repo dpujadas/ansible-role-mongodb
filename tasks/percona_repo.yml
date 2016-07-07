@@ -1,0 +1,14 @@
+- name: Include the percona variables
+  include_vars: 'percona.yml'
+
+- name: Check if percona-release package is installed
+  shell: >
+    dpkg-query -W {{ mongodb_percona_package_name }}
+  register: mongodb_percona_check_deb
+  failed_when: mongodb_percona_check_deb.rc > 1
+  changed_when: mongodb_percona_check_deb.rc == 1
+
+- name: Install percona-release package
+  apt:
+    deb: 'https://repo.percona.com/apt/{{ mongodb_percona_package }}.deb'
+  when: mongodb_percona_check_deb.rc == 1

@@ -1,0 +1,37 @@
+---
+# tasks file for mongodb
+
+- include: 'percona_repo.yml'
+  when: mongodb_use_percona
+  tags:
+    - mongodb
+    - percona
+
+- include: 'mongodb_repo.yml'
+  when: not mongodb_use_percona
+  tags:
+    - mongodb
+
+- name: Install the mongodb packages
+  apt:
+    name: '{{ mongodb_prefix }}{{ item }}'
+    state: 'present'
+    update_cache: 'yes'
+  with_items: '{{ mongodb_packages }}'
+  tags:
+    - mongodb
+
+- name: Configure mongodb server
+  template:
+    src: 'mongod.conf.j2'
+    dest: '/etc/mongod.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: restart mongod
+  tags:
+    - mongodb
+
+- include: '{{ mongodb_init_system }}.yml'
+  tags:
+    - mongodb

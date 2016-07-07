@@ -1,0 +1,63 @@
+# mongod.conf
+
+# Where and how to store data.
+storage:
+  dbPath: '{{ mongodb_storage_dbpath }}'
+  journal:
+    enabled: {{ mongodb_storage_journal_enabled }}
+{% if mongodb_storage_engine %}
+  engine: '{{ mongodb_storage_engine }}'
+{% endif %}
+
+# Where to write logging data.
+systemLog:
+  destination: '{{ mongodb_systemlog_destination }}'
+{% if mongodb_systemlog_destination == 'file' %}
+  path: '{{ mongodb_systemlog_path }}'
+  logAppend: {{ mongodb_systemlog_logappend }}
+{% endif %}
+
+processManagement:
+  fork: {{ mongodb_processmanagement_fork }}
+{% if mongodb_processmanagement_fork %}
+  pidFilePath: '{{ mongodb_processmanagement_pidfilepath }}'
+{% endif %}
+
+# network interfaces
+net:
+  port: {{ mongodb_net_port }}
+{% if mongodb_net_bindip %}
+  bindIp: '{{ mongodb_net_bindip }}'
+{% endif %}
+{% if mongodb_net_ssl_mode %}
+  ssl:
+    mode: '{{ mongodb_net_ssl_mode }}'
+{% if mongodb_net_ssl_pemkeyfile %}
+    PEMKeyFile: '{{ mongodb_net_ssl_pemkeyfile }}'
+{% endif %}
+{% endif %}
+
+# security
+security:
+  authorization: '{{ mongodb_security_authorization }}'
+{% if mongodb_security_authorization != 'disabled' %}
+  keyFile: '{{ mongodb_security_keyfile }}'
+  clusterAuthMode: '{{ mongodb_security_clusterauthmode }}'
+{% endif %}
+
+# replication
+{% if mongodb_replication_replsetname %}
+replication:
+  replSetName: '{{ mongodb_replication_replsetname }}'
+{% if mongodb_replication_oplogsizemb %}
+  oplogSizeMB: {{ mongodb_replication_oplogsizemb }}
+{% endif %}
+{% endif %}
+
+# parameters
+{% if mongodb_setparameter|length > 0 -%}
+setParameter:
+{% for key, value in mongodb_setparameter.iteritems() %}
+  {{ key }}: {{ value }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,11 @@
+---
+- hosts: travis
+  connection: docker
+  remote_user: root
+  vars:
+    mongodb_net_bindip: ''
+  roles:
+    - {
+      role: ansible-role-mongodb,
+      mongodb_init_system: 'runit'
+    }

@@ -1,0 +1,30 @@
+---
+# handlers file for mongodb
+
+- name: restart mongodb
+  shell: >
+    /bin/true
+  notify: 'restart mongodb {{ mongodb_init_system }}'
+
+- name: restart mongodb upstart
+  service:
+    name: 'mongod'
+    state: 'restarted'
+
+- name: restart mongodb runit
+  shell: >
+    sleep 5 && sv restart mongod
+
+- name: reload mongodb
+  shell: >
+    /bin/true
+  notify: 'reload mongodb {{ mongodb_init_system }}'
+
+- name: reload mongodb upstart
+  service:
+    name: 'mongod'
+    state: 'reloaded'
+
+- name: reload mongodb runit
+  shell: >
+    sleep 5 && sv reload mongod

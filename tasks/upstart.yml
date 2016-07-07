@@ -1,0 +1,5 @@
+- name: Ensure mongod is started and enabled at boot
+  service:
+    name: 'mongod'
+    state: 'started'
+    enabled: 'yes'
