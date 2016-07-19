@@ -89,14 +89,14 @@
 
 - name: Run mongoshell commands
   shell: >
-    mongo {{ item.key }} --eval "{{ item.value|join('\n') }}"
+    mongo --port {{ mongodb_net_port }} {{ item.key }} --eval "{{ item.value|join('\n') }}"
   with_dict: '{{ mongodb_shell }}'
   tags:
     - mongodb
 
 - name: Check if admin user exists
   shell: >
-    mongo test -u {{ mongodb_admin_user }} -p'{{ mongodb_admin_pass }}' --authenticationDatabase admin --eval "db"
+    mongo --port {{ mongodb_net_port }} test -u {{ mongodb_admin_user }} -p'{{ mongodb_admin_pass }}' --authenticationDatabase admin --eval "db"
   register: mongodb_check_admin_user
   failed_when: mongodb_check_admin_user.rc > 1
   changed_when: mongodb_check_admin_user.rc == 1
@@ -105,7 +105,7 @@
 
 - name: Create admin user
   shell: >
-    mongo admin --eval "db.createUser({user:'{{ mongodb_admin_user }}',pwd:'{{ mongodb_admin_pass }}',roles:['root']})"
+    mongo --port {{ mongodb_net_port }} admin --eval "db.createUser({user:'{{ mongodb_admin_user }}',pwd:'{{ mongodb_admin_pass }}',roles:['root']})"
   when: mongodb_check_admin_user.changed
   tags:
     - mongodb
