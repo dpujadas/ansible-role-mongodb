@@ -41,8 +41,10 @@ net:
 security:
   authorization: '{{ mongodb_security_authorization }}'
 {% if mongodb_security_authorization != 'disabled' %}
-  keyFile: '{{ mongodb_security_keyfile }}'
   clusterAuthMode: '{{ mongodb_security_clusterauthmode }}'
+{% endif %}
+{% if mongodb_security_keyfile is defined %}
+  keyFile: '{{ mongodb_security_keyfile }}'
 {% endif %}
 
 # replication

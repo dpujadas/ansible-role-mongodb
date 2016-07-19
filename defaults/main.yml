@@ -1,13 +1,25 @@
 ---
 # defaults file for mongodb
 
+mongodb_use_percona: False
+
 mongodb_maj_version: '3'
 mongodb_min_version: '0'
 mongodb_packages:
   - ''
 mongodb_init_system: 'upstart'
-
-mongodb_use_percona: False
+mongodb_admin_user: 'admin'
+# Format for mongodb_shell:
+#   db_name:
+#     - command1
+#     - command2
+mongodb_shell: {}
+# Format for mongodb_users:
+#   - name     : Username
+#     database : Which database to grant access
+#     password : Password
+#     roles    : List of roles
+mongodb_users: []
 
 ## Config
 # storage

@@ -1,11 +1,24 @@
 ---
 # tasks file for mongodb
 
+- name: Install required packages
+  apt:
+    name: 'python-pip'
+    state: 'installed'
+  tags:
+    - mongodb
+
+- name: Install required pip package
+  pip:
+    name: 'pymongo'
+    state: 'latest'
+  tags:
+    - mongodb
+
 - include: 'percona_repo.yml'
   when: mongodb_use_percona
   tags:
     - mongodb
-    - percona
 
 - include: 'mongodb_repo.yml'
   when: not mongodb_use_percona
@@ -53,6 +66,60 @@
   tags:
     - mongodb
 
+- name: Check if pid file exists
+  stat:
+    path: '{{ mongodb_processmanagement_pidfilepath }}'
+  register: mongodb_pid_file_stat
+  changed_when: not mongodb_pid_file_stat.stat.exists
+  tags:
+    - mongodb
+
+- name: Ensure {{ mongodb_user }} can create pid file
+  file:
+    state: 'touch'
+    owner: '{{ mongodb_user }}'
+    path: '{{ mongodb_processmanagement_pidfilepath }}'
+  when: mongodb_pid_file_stat.changed
+  tags:
+    - mongodb
+
 - include: '{{ mongodb_init_system }}.yml'
+  tags:
+    - mongodb
+
+- name: Run mongoshell commands
+  shell: >
+    mongo {{ item.key }} --eval "{{ item.value|join('\n') }}"
+  with_dict: '{{ mongodb_shell }}'
+  tags:
+    - mongodb
+
+- name: Check if admin user exists
+  shell: >
+    mongo test -u {{ mongodb_admin_user }} -p'{{ mongodb_admin_pass }}' --authenticationDatabase admin --eval "db"
+  register: mongodb_check_admin_user
+  failed_when: mongodb_check_admin_user.rc > 1
+  changed_when: mongodb_check_admin_user.rc == 1
+  tags:
+    - mongodb
+
+- name: Create admin user
+  shell: >
+    mongo admin --eval "db.createUser({user:'{{ mongodb_admin_user }}',pwd:'{{ mongodb_admin_pass }}',roles:['root']})"
+  when: mongodb_check_admin_user.changed
+  tags:
+    - mongodb
+
+- name: Set mongodb users
+  mongodb_user:
+    login_database: 'admin'
+    login_user: '{{ mongodb_admin_user }}'
+    login_password: '{{ mongodb_admin_pass }}'
+    login_port: '{{ mongodb_net_port }}'
+    name: '{{ item.name }}'
+    database: '{{ item.database }}'
+    password: '{{ item.password|default(omit) }}'
+    roles: '{{ item.roles|default(omit) }}'
+  with_items: '{{ mongodb_users }}'
   tags:
     - mongodb

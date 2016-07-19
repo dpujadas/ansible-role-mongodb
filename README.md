@@ -6,10 +6,12 @@ This role installs and configures [MongoDB](https://www.mongodb.com/), optionall
 Role Variables
 --------------
 
+- `mongodb_use_percona`: Use percona server or not (default: False)
 - `mongodb_maj_version`: Major version to install, currently only '3' (default: '3')
 - `mongodb_min_version`: Minor version to install, currently only '0' or '2' (default: '0')
+- `mongodb_admin_user`: User with root privileges (default: 'admin')
+- `mongodb_admin_pass`: Password for admin user (Ex: 'SuperSecretPass')
 - `mongodb_packages`: List of packages to install (default: [''])
-- `mongodb_use_percona`: Use percona server or not (default: False)
 - `mongodb_storage_dbpath`: The directory where the mongod instance stores its data (default: '/var/lib/mongodb')
 - `mongodb_storage_journal_enabled`: Enable or disable the durability journal (default: 'true')
 - `mongodb_storage_engine`: The storage engine for the mongod database (Ex: 'rocksdb')
@@ -23,9 +25,12 @@ Role Variables
 - `mongodb_net_ssl_mode`: Enable or disable TLS/SSL (Ex: 'preferSSL')
 - `mongodb_security_authorization`: Enable or disable Role-Based Access Control (default: 'disabled')
 - `mongodb_security_clusterauthmode`: The authentication mode used for cluster authentication (default: 'keyFile')
+- `mongodb_security_keyfile`: Path to a key file that stores the shared secret that MongoDB instances use to authenticate to each other (Ex: '/path/to/keyFile')
 - `mongodb_replication_oplogsizemb`: The maximum size in megabytes for the replication operation log (Ex: '2000')
 - `mongodb_replication_replsetname`: The name of the replica set (Ex: 'repl-test')
 - `mongodb_setparameter`: List of parameters for mongodb (default: empty list)
+- `mongodb_shell`: List of mongo commands to execute (default: '{}')
+- `mongodb_users`: List of users to create (default: '[]')
 
 Example Playbook
 ----------------

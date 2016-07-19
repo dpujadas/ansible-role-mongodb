@@ -3,8 +3,11 @@
   connection: docker
   remote_user: root
   vars:
+    mongodb_admin_pass: 'admin'
     mongodb_net_bindip: ''
-    mongodb_processmanagement_pidfilepath: '/tmp/mongod.pid'
+    mongodb_security_authorization: 'enabled'
+    mongodb_setparameter:
+      failIndexKeyTooLong: 'false'
   roles:
     - {
       role: ansible-role-mongodb,
