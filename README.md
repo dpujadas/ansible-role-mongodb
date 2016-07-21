@@ -23,6 +23,7 @@ Role Variables
 - `mongodb_net_port`: TCP port for client connections (default: '27017')
 - `mongodb_net_bindip`: IP address(es) that mongos or mongod binds to (default: '127.0.0.1')
 - `mongodb_net_ssl_mode`: Enable or disable TLS/SSL (Ex: 'preferSSL')
+- `mongodb_net_ssl_pemkeyfile`: The .pem file that contains both the TLS/SSL certificate and key (Ex: '/path/to/PEMKeyFile')
 - `mongodb_security_authorization`: Enable or disable Role-Based Access Control (default: 'disabled')
 - `mongodb_security_clusterauthmode`: The authentication mode used for cluster authentication (default: 'keyFile')
 - `mongodb_security_keyfile`: Path to a key file that stores the shared secret that MongoDB instances use to authenticate to each other (Ex: '/path/to/keyFile')
