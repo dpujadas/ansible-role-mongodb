@@ -5,6 +5,7 @@
   apt:
     name: 'python-pip'
     state: 'installed'
+    update_cache: 'yes'
   tags:
     - mongodb
 
@@ -62,7 +63,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify: restart mongod
+  notify: restart mongodb
   tags:
     - mongodb
 
