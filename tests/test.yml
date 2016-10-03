@@ -12,6 +12,7 @@
     - {
       role: ansible-role-mongodb,
       mongodb_use_percona: True,
+      mongodb_create_admin_user: True,
       mongodb_processmanagement_fork: 'false',
       mongodb_init_system: 'runit'
     }

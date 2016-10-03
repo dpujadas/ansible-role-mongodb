@@ -15,7 +15,7 @@ systemLog:
 {% if mongodb_systemlog_destination == 'file' %}
   path: '{{ mongodb_systemlog_path }}'
   logAppend: {{ mongodb_systemlog_logappend }}
-  logRotate: {{ mongodb_systemlog_logrotate }}
+  logRotate: '{{ mongodb_systemlog_logrotate }}'
 {% endif %}
 
 processManagement:
