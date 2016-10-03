@@ -100,6 +100,13 @@
   tags:
     - mongodb
 
+- name: Ensure {{ mongodb_storage_dbpath }} has right perms
+  file:
+    path: '{{ mongodb_storage_dbpath }}'
+    owner: '{{ mongodb_user }}'
+  tags:
+    - mongodb
+
 - include: '{{ mongodb_init_system }}.yml'
   tags:
     - mongodb
@@ -117,6 +124,7 @@
   register: mongodb_check_admin_user
   failed_when: mongodb_check_admin_user.rc > 1
   changed_when: mongodb_check_admin_user.rc == 1
+  when: mongodb_create_admin_user
   tags:
     - mongodb
 

@@ -7,6 +7,7 @@ Role Variables
 --------------
 
 - `mongodb_use_percona`: Use percona server or not (default: False)
+- `mongodb_create_admin_user`: Create admin user or not (default: False)
 - `mongodb_maj_version`: Major version to install, currently only '3' (default: '3')
 - `mongodb_min_version`: Minor version to install, currently only '0' or '2' (default: '0')
 - `mongodb_admin_user`: User with root privileges (default: 'admin')
