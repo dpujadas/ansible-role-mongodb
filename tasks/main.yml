@@ -148,3 +148,14 @@
   with_items: '{{ mongodb_users }}'
   tags:
     - mongodb
+
+- name: Rotate mongodb logs
+  template:
+    src: 'logrotate.j2'
+    dest: '/etc/logrotate.d/mongodb'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when: mongodb_enable_logrotate
+  tags:
+    - mongodb

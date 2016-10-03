@@ -19,6 +19,7 @@ Role Variables
 - `mongodb_systemlog_destination`: The destination to which MongoDB sends all log output (default: 'file')
 - `mongodb_systemlog_path`: The path of the log file (default: '/var/log/mongodb/mongod.log')
 - `mongodb_systemlog_logappend`: Append new entries to the end of the existing log (default: 'true')
+- `mongodb_systemlog_logrotate`: Set the behavior for the logRotate command (default: 'rename')
 - `mongodb_processmanagement_fork`: Run process in the background or not (default: 'true')
 - `mongodb_processmanagement_pidfilepath`: File location to hold the process ID (default: '/var/run/mongod.pid')
 - `mongodb_net_port`: TCP port for client connections (default: '27017')

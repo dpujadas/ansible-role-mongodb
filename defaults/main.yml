@@ -3,6 +3,7 @@
 
 mongodb_use_percona: False
 mongodb_create_admin_user: False
+mongodb_enable_logrotate: False
 
 mongodb_maj_version: '3'
 mongodb_min_version: '0'
@@ -31,6 +32,7 @@ mongodb_storage_engine: ''
 mongodb_systemlog_destination: 'file'
 mongodb_systemlog_path: '/var/log/mongodb/mongod.log'
 mongodb_systemlog_logappend: 'true'
+mongodb_systemlog_logrotate: 'rename'
 # processManagement
 mongodb_processmanagement_fork: 'true'
 mongodb_processmanagement_pidfilepath: '/var/run/mongod.pid'
