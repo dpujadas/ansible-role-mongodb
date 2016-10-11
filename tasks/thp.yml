@@ -1,0 +1,13 @@
+- name: Create init script
+  template:
+    src: 'thp-upstart-script.j2'
+    dest: '/etc/init.d/disable-transparent-hugepages'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+- name: Ensure disable-transparent-hugepages is started and enabled at boot
+  service:
+    name: 'disable-transparent-hugepages'
+    state: 'started'
+    enabled: 'yes'

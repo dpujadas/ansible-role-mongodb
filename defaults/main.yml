@@ -1,6 +1,7 @@
 ---
 # defaults file for mongodb
 
+mongodb_disable_thp: True
 mongodb_use_percona: False
 mongodb_create_admin_user: False
 mongodb_enable_logrotate: False

@@ -1,6 +1,11 @@
 ---
 # tasks file for mongodb
 
+- include: 'thp.yml'
+  when: mongodb_disable_thp
+  tags:
+    - mongodb
+
 - name: Install required packages
   apt:
     name: 'python-pip'

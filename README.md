@@ -6,6 +6,7 @@ This role installs and configures [MongoDB](https://www.mongodb.com/), optionall
 Role Variables
 --------------
 
+- `mongodb_disable_thp`: Disable [THP](https://docs.mongodb.com/manual/tutorial/transparent-huge-pages/) or not (default: True)
 - `mongodb_use_percona`: Use percona server or not (default: False)
 - `mongodb_create_admin_user`: Create admin user or not (default: False)
 - `mongodb_maj_version`: Major version to install, currently only '3' (default: '3')
