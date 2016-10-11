@@ -6,8 +6,18 @@
     group: 'root'
     mode: '0755'
 
-- name: Ensure disable-transparent-hugepages is started and enabled at boot
+- name: Get current thp status
+  shell: >
+    echo `cat /sys/kernel/mm/transparent_hugepage/enabled | awk -F'[][]' '{print $2}'``cat /sys/kernel/mm/transparent_hugepage/defrag | awk -F'[][]' '{print $2}'`
+  register: mongodb_thp_status
+  changed_when: mongodb_thp_status.stdout != 'nevernever'
+
+- name: Run script
+  shell: >
+    service disable-transparent-hugepages start
+  when: mongodb_thp_status.changed
+
+- name: Ensure disable-transparent-hugepages is enabled at boot
   service:
     name: 'disable-transparent-hugepages'
-    state: 'started'
     enabled: 'yes'
