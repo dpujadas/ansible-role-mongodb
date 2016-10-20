@@ -5,6 +5,8 @@ mongodb_disable_thp: True
 mongodb_use_percona: False
 mongodb_create_admin_user: False
 mongodb_enable_logrotate: False
+mongodb_wait_for: True
+mongodb_wait_for_timeout: '600'
 
 mongodb_maj_version: '3'
 mongodb_min_version: '0'

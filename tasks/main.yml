@@ -116,6 +116,15 @@
   tags:
     - mongodb
 
+- name: Wait for MongoDB to come up
+  wait_for:
+    port: '{{ mongodb_net_port }}'
+    state: 'started'
+    timeout: '{{ mongodb_wait_for_timeout }}'
+  when: mongodb_wait_for
+  tags:
+    - mongodb
+
 - name: Run mongoshell commands
   shell: >
     mongo --port {{ mongodb_net_port }} {{ item.key }} --eval "{{ item.value|join('\n') }}"
